@@ -4,7 +4,7 @@ import com.whatsapp.clone.application.messaging.domain.message.vo.ConversationNa
 import com.whatsapp.clone.application.messaging.domain.message.vo.ConversationPublicId;
 import com.whatsapp.clone.application.messaging.domain.user.aggregate.User;
 import com.whatsapp.clone.application.shared.error.domain.Assert;
-import lombok.Builder;
+import org.jilt.Builder;
 
 import java.util.Set;
 

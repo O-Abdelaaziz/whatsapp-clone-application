@@ -1,8 +1,9 @@
 package com.whatsapp.clone.application.messaging.domain.message.vo;
 
-import lombok.Builder;
+import org.jilt.Builder;
 
-import java.awt.*;
+
+
 
 /**
  * @Created 4/7/2024 - 5:11 PM on (Thursday)
@@ -13,6 +14,6 @@ import java.awt.*;
  **/
 @Builder
 public record MessageContent(String text,
-                             TrayIcon.MessageType type,
+                             MessageType type,
                              MessageMediaContent media) {
 }

@@ -3,7 +3,7 @@ package com.whatsapp.clone.application.messaging.domain.message.aggregate;
 import com.whatsapp.clone.application.messaging.domain.message.vo.ConversationName;
 import com.whatsapp.clone.application.messaging.domain.user.vo.UserPublicId;
 import com.whatsapp.clone.application.shared.error.domain.Assert;
-import lombok.Builder;
+import org.jilt.Builder;
 
 import java.util.Set;
 

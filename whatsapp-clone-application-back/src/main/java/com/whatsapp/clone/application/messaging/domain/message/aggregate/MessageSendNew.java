@@ -2,7 +2,7 @@ package com.whatsapp.clone.application.messaging.domain.message.aggregate;
 
 import com.whatsapp.clone.application.messaging.domain.message.vo.ConversationPublicId;
 import com.whatsapp.clone.application.messaging.domain.message.vo.MessageContent;
-import lombok.Builder;
+import org.jilt.Builder;
 
 /**
  * @Created 4/7/2024 - 5:24 PM on (Thursday)
