@@ -29,8 +29,9 @@ export class Oauth2AuthService {
     this.initFetchUserCaching(false);
   }
 
-  private fetchUser$: WritableSignal<State<ConnectedUser>> = signal(State.Builder<ConnectedUser>().forSuccess({email: this.NOT_CONNECTED}));
-  public fetchUser = computed(() => this.fetchUser$());
+  private fetchUser$: WritableSignal<State<ConnectedUser>> =
+    signal(State.Builder<ConnectedUser>().forSuccess({email: this.NOT_CONNECTED}));
+  fetchUser = computed(() => this.fetchUser$());
 
   public initAuthentication(): void {
     from(this.keycloak.init({
@@ -47,7 +48,7 @@ export class Oauth2AuthService {
           if (this.authModalRef) {
             this.authModalRef.close();
           }
-          //this.sseService.subscribe(this.accessToken!);
+          // this.sseService.subscribe(this.accessToken!);
         } else {
           this.authModalRef = this.modalService
             .open(AuthModalComponent, {centered: true, backdrop: "static"});
@@ -65,7 +66,7 @@ export class Oauth2AuthService {
           this.accessToken = this.keycloak.token;
         }
       },
-      error: error => console.error("Failed to refresh token" + error)
+      error: err => console.error("Failed to refresh token" + err)
     });
   }
 

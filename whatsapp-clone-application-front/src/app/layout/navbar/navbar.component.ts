@@ -35,9 +35,9 @@ export class NavbarComponent {
   private listenToFetchedUser() {
     effect(() => {
       const userState = this.oauth2AuthService.fetchUser();
-      if (userState.status === 'OK' &&
-        userState.value?.email &&
-        userState.value.email !== this.oauth2AuthService.NOT_CONNECTED) {
+      if (userState.status === "OK"
+        && userState.value?.email
+        && userState.value.email !== this.oauth2AuthService.NOT_CONNECTED) {
         this.connectedUser = userState.value;
       }
     });

@@ -14,6 +14,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * @Created 4/7/2024 - 6:53 PM on (Thursday)
@@ -52,31 +53,38 @@ public class SpringDataUserRepository implements UserRepository {
 
     @Override
     public Optional<User> getOneByEmail(UserEmail userEmail) {
-        return Optional.empty();
+        return jpaUserRepository.findByEmail(userEmail.value())
+                .map(UserEntity::toDomain);
     }
 
     @Override
     public List<User> getByPublicIds(Set<UserPublicId> userPublicIds) {
-        return List.of();
+        List<UUID> rawPublicIds = userPublicIds.stream().map(UserPublicId::value).toList();
+        return jpaUserRepository.findByPublicIdIn(rawPublicIds)
+                .stream()
+                .map(UserEntity::toDomain)
+                .toList();
     }
 
     @Override
     public Page<User> search(Pageable pageable, String query) {
-        return null;
+        return jpaUserRepository.search(pageable, query).map(UserEntity::toDomain);
     }
 
     @Override
     public int updateLastSeenByPublicId(UserPublicId userPublicId, Instant lastSeen) {
-        return 0;
+        return jpaUserRepository.updateLastSeen(userPublicId.value(), lastSeen);
     }
 
     @Override
     public List<User> getRecipientByConversationIdExcludingReader(ConversationPublicId conversationPublicId, UserPublicId readerPublicId) {
-        return List.of();
+        return jpaUserRepository.findByConversationsPublicIdAndPublicIdIsNot(conversationPublicId.value(), readerPublicId.value())
+                .stream().map(UserEntity::toDomain).toList();
     }
 
     @Override
     public Optional<User> getOneByPublicId(UserPublicId userPublicId) {
-        return Optional.empty();
+        return jpaUserRepository.findOneByPublicId(userPublicId.value())
+                .map(UserEntity::toDomain);
     }
 }
