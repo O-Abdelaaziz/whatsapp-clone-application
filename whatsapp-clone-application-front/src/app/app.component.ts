@@ -4,11 +4,12 @@ import {NgbAccordionModule} from "@ng-bootstrap/ng-bootstrap";
 import {FaIconComponent, FaIconLibrary} from "@fortawesome/angular-fontawesome";
 import {fontAwesomeIcons} from "./shared/font-awesome-icons";
 import {Oauth2AuthService} from "./auth/oauth2-auth.service";
+import {NavbarComponent} from "./layout/navbar/navbar.component";
 
 @Component({
   selector: 'wac-root',
   standalone: true,
-  imports: [RouterOutlet, NgbAccordionModule],
+  imports: [RouterOutlet, NgbAccordionModule, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

@@ -14,14 +14,13 @@ import {AuthModalComponent} from "./auth-modal/auth-modal.component";
   providedIn: 'root'
 })
 export class Oauth2AuthService {
+  public NOT_CONNECTED = 'NOT_CONNECTED';
+  public accessToken: string | undefined;
+
   private TOKEN_VALIDITY_MILLISECONDS = 10000;
-  private NOT_CONNECTED = 'NOT_CONNECTED';
   private authModalRef: NgbModalRef | undefined;
   private keycloak = new Keycloak(KeyCloakConfig);
   private fetchUserHttp$ = new Observable<ConnectedUser>();
-
-
-  public accessToken: string | undefined;
 
   private httpClient = inject(HttpClient);
   private modalService = inject(NgbModal);
@@ -31,7 +30,7 @@ export class Oauth2AuthService {
   }
 
   private fetchUser$: WritableSignal<State<ConnectedUser>> = signal(State.Builder<ConnectedUser>().forSuccess({email: this.NOT_CONNECTED}));
-  public fetchUser = computed(() => this.fetchUser$);
+  public fetchUser = computed(() => this.fetchUser$());
 
   public initAuthentication(): void {
     from(this.keycloak.init({

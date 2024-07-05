@@ -1,5 +1,6 @@
 package com.whatsapp.clone.application.infrastructure.secondary.repository;
 
+import com.whatsapp.clone.application.infrastructure.secondary.entity.UserEntity;
 import com.whatsapp.clone.application.messaging.domain.message.vo.ConversationPublicId;
 import com.whatsapp.clone.application.messaging.domain.user.aggregate.User;
 import com.whatsapp.clone.application.messaging.domain.user.repository.UserRepository;
@@ -23,11 +24,25 @@ import java.util.Set;
  **/
 @Repository
 public class SpringDataUserRepository implements UserRepository {
+    private final JpaUserRepository jpaUserRepository;
+
+    public SpringDataUserRepository(JpaUserRepository jpaUserRepository) {
+        this.jpaUserRepository = jpaUserRepository;
+    }
 
 
     @Override
     public void save(User user) {
-
+        if (user.getDbId() != null) {
+            Optional<UserEntity> userToUpdateOpt = jpaUserRepository.findById(user.getDbId());
+            if (userToUpdateOpt.isPresent()) {
+                UserEntity userToUpdate = userToUpdateOpt.get();
+                userToUpdate.updateFromUser(user);
+                jpaUserRepository.saveAndFlush(userToUpdate);
+            }
+        } else {
+            jpaUserRepository.save(UserEntity.from(user));
+        }
     }
 
     @Override
