@@ -25,6 +25,8 @@ public interface ConversationRepository {
 
     Page<Conversation> getConversationByUserPublicId(UserPublicId publicId, Pageable pageable);
 
+    int deleteByPublicId(UserPublicId userPublicId, ConversationPublicId conversationPublicId);
+
     Optional<Conversation> getConversationByUsersPublicIdAndPublicId(UserPublicId userPublicId, ConversationPublicId conversationPublicId);
 
     Optional<Conversation> getConversationByUserPublicIds(List<UserPublicId> publicIds);
