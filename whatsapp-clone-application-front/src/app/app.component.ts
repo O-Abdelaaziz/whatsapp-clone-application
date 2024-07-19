@@ -8,11 +8,12 @@ import {NavbarComponent} from "./layout/navbar/navbar.component";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import {ConversationsComponent} from "./conversations/conversations.component";
+import {HeaderComponent} from "./layout/header/header.component";
 
 @Component({
   selector: 'wac-root',
   standalone: true,
-  imports: [RouterOutlet, NgbAccordionModule, NavbarComponent, ConversationsComponent],
+  imports: [RouterOutlet, NgbAccordionModule, NavbarComponent, ConversationsComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

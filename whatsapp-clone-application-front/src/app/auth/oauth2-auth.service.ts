@@ -5,11 +5,12 @@ import Keycloak from "keycloak-js";
 import {KeyCloakConfig} from "../constant/keycloak.config";
 import {State} from "../shared/model/state.model";
 import {ConnectedUser} from "../shared/model/user.model";
-import {catchError, from, interval, Observable, of, shareReplay, switchMap} from "rxjs";
+import {catchError, from, interval, Observable, of, shareReplay, Subject, switchMap} from "rxjs";
 import {environment} from "../../environments/environment";
 import {fromPromise} from "rxjs/internal/observable/innerFrom";
 import {AuthModalComponent} from "./auth-modal/auth-modal.component";
 import {SseService} from "../messages/sse.service";
+import dayjs, {Dayjs} from "dayjs";
 
 @Injectable({
   providedIn: 'root'
@@ -22,10 +23,14 @@ export class Oauth2AuthService {
   private authModalRef: NgbModalRef | undefined;
   private keycloak = new Keycloak(KeyCloakConfig);
   private fetchUserHttp$ = new Observable<ConnectedUser>();
+  private lastSeen$ = new Subject<State<Dayjs>>();
+  lastSeen = this.lastSeen$.asObservable()
+
 
   private httpClient = inject(HttpClient);
   private modalService = inject(NgbModal);
   sseService = inject(SseService);
+
 
   constructor() {
     this.initFetchUserCaching(false);
@@ -105,5 +110,14 @@ export class Oauth2AuthService {
 
   goToProfilePage(): void {
     this.keycloak.accountManagement();
+  }
+
+  handleLastSeen(userPublicId: string): void {
+    const params = new HttpParams().set("publicId", userPublicId);
+    this.httpClient.get<Date>(`${environment.serverUrl}/users/get-last-seen`, {params})
+      .subscribe({
+        next: lastSeen => this.lastSeen$.next(State.Builder<Dayjs>().forSuccess(dayjs(lastSeen))),
+        error: err => this.lastSeen$.next(State.Builder<Dayjs>().forError(err))
+      });
   }
 }
