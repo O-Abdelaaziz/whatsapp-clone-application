@@ -1,5 +1,6 @@
 package com.whatsapp.clone.application.infrastructure.secondary.message;
 
+import com.whatsapp.clone.application.infrastructure.primary.message.RestMessage;
 import com.whatsapp.clone.application.messaging.domain.message.aggregate.Message;
 import com.whatsapp.clone.application.messaging.domain.message.vo.ConversationPublicId;
 import com.whatsapp.clone.application.messaging.domain.user.vo.UserPublicId;
@@ -31,7 +32,9 @@ public class SpringEventMessageChangeNotifier implements MessageChangeNotifier {
 
     @Override
     public State<Void, String> send(Message message, List<UserPublicId> userToNotify) {
-        return null;
+        MessageWithUsers messageWithUsers = new MessageWithUsers(message, userToNotify);
+        applicationEventPublisher.publishEvent(messageWithUsers);
+        return State.<Void, String>builder().forSuccess();
     }
 
     @Override
@@ -43,7 +46,9 @@ public class SpringEventMessageChangeNotifier implements MessageChangeNotifier {
 
     @Override
     public State<Void, String> view(ConversationViewedForNotification conversationViewedForNotification, List<UserPublicId> usersToNotify) {
-        return null;
+        MessageIdWithUsers messageIdWithUsers = new MessageIdWithUsers(conversationViewedForNotification, usersToNotify);
+        applicationEventPublisher.publishEvent(messageIdWithUsers);
+        return State.<Void, String>builder().forSuccess();
     }
 
 
@@ -53,5 +58,15 @@ public class SpringEventMessageChangeNotifier implements MessageChangeNotifier {
                 conversationIdWithUsers.users(), NotificationEventName.DELETE_CONVERSATION);
     }
 
+    @EventListener
+    public void handleNewMessage(MessageWithUsers messageWithUsers) {
+        notificationService.sendMessage(RestMessage.from(messageWithUsers.message()),
+                messageWithUsers.userToNotify(), NotificationEventName.NEW_MESSAGE);
+    }
 
+    @EventListener
+    public void handleView(MessageIdWithUsers messageIdWithUsers) {
+        notificationService.sendMessage(messageIdWithUsers.conversationViewedForNotification(),
+                messageIdWithUsers.usersToNotify(), NotificationEventName.VIEWS_MESSAGES);
+    }
 }
