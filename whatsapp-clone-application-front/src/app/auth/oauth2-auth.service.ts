@@ -9,6 +9,7 @@ import {catchError, from, interval, Observable, of, shareReplay, switchMap} from
 import {environment} from "../../environments/environment";
 import {fromPromise} from "rxjs/internal/observable/innerFrom";
 import {AuthModalComponent} from "./auth-modal/auth-modal.component";
+import {SseService} from "../messages/sse.service";
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class Oauth2AuthService {
 
   private httpClient = inject(HttpClient);
   private modalService = inject(NgbModal);
+  sseService = inject(SseService);
 
   constructor() {
     this.initFetchUserCaching(false);
@@ -48,7 +50,7 @@ export class Oauth2AuthService {
           if (this.authModalRef) {
             this.authModalRef.close();
           }
-          // this.sseService.subscribe(this.accessToken!);
+          this.sseService.subscribe(this.accessToken!);
         } else {
           this.authModalRef = this.modalService
             .open(AuthModalComponent, {centered: true, backdrop: "static"});

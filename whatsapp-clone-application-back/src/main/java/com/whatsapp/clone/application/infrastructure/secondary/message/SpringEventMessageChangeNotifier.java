@@ -6,6 +6,7 @@ import com.whatsapp.clone.application.messaging.domain.user.vo.UserPublicId;
 import com.whatsapp.clone.application.messaging.service.MessageChangeNotifier;
 import com.whatsapp.clone.application.shared.service.State;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,14 @@ import java.util.List;
 @Service
 public class SpringEventMessageChangeNotifier implements MessageChangeNotifier {
 
+    private final NotificationService notificationService;
+    private final ApplicationEventPublisher applicationEventPublisher;
+
+    public SpringEventMessageChangeNotifier(ApplicationEventPublisher applicationEventPublisher, NotificationService notificationService) {
+        this.applicationEventPublisher = applicationEventPublisher;
+        this.notificationService = notificationService;
+    }
+
     @Override
     public State<Void, String> send(Message message, List<UserPublicId> userToNotify) {
         return null;
@@ -27,11 +36,22 @@ public class SpringEventMessageChangeNotifier implements MessageChangeNotifier {
 
     @Override
     public State<Void, String> delete(ConversationPublicId conversationPublicId, List<UserPublicId> userToNotify) {
-        return null;
+        ConversationIdWithUsers conversationIdWithUsers = new ConversationIdWithUsers(conversationPublicId, userToNotify);
+        applicationEventPublisher.publishEvent(conversationIdWithUsers);
+        return State.<Void, String>builder().forSuccess();
     }
 
     @Override
     public State<Void, String> view(ConversationViewedForNotification conversationViewedForNotification, List<UserPublicId> usersToNotify) {
         return null;
     }
+
+
+    @EventListener
+    public void handleDeleteConversation(ConversationIdWithUsers conversationIdWithUsers) {
+        notificationService.sendMessage(conversationIdWithUsers.conversationPublicId().value(),
+                conversationIdWithUsers.users(), NotificationEventName.DELETE_CONVERSATION);
+    }
+
+
 }
