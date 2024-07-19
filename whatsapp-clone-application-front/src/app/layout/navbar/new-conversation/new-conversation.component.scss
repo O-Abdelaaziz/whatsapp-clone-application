@@ -1,0 +1,17 @@
+@import "../../../../assets/scss/bootstrap-variables";
+
+#header {
+  background-color: $menu-bg-color;
+  //background-color: #202C33;
+  height: 100px;
+}
+
+#main {
+  background-color: $bg-conversation-color;
+  //background-color: #111B21;
+  height: calc(100% - 100px);
+}
+
+#close {
+  cursor: pointer;
+}

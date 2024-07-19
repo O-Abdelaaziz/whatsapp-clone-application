@@ -3,12 +3,14 @@ import {Oauth2AuthService} from "../../auth/oauth2-auth.service";
 import {ConnectedUser} from "../../shared/model/user.model";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {
+  NgbActiveOffcanvas,
   NgbDropdown,
   NgbDropdownItem,
   NgbDropdownMenu,
   NgbDropdownToggle,
   NgbOffcanvas
 } from "@ng-bootstrap/ng-bootstrap";
+import {NewConversationComponent} from "./new-conversation/new-conversation.component";
 
 @Component({
   selector: 'wac-navbar',
@@ -24,9 +26,10 @@ import {
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-
   public connectedUser: ConnectedUser | undefined;
+
   public oauth2AuthService = inject(Oauth2AuthService);
+  private offCanvasService = inject(NgbOffcanvas);
 
   constructor() {
     this.listenToFetchedUser();
@@ -52,5 +55,7 @@ export class NavbarComponent {
   }
 
   openNewConversation() {
+    this.offCanvasService.open(NewConversationComponent,
+      {position: "start", container: "#main", panelClass: "offcanvas"});
   }
 }

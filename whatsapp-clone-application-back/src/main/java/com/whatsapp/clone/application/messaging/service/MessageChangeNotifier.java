@@ -1,5 +1,6 @@
 package com.whatsapp.clone.application.messaging.service;
 
+import com.whatsapp.clone.application.infrastructure.secondary.message.ConversationViewedForNotification;
 import com.whatsapp.clone.application.messaging.domain.message.aggregate.Message;
 import com.whatsapp.clone.application.messaging.domain.message.vo.ConversationPublicId;
 import com.whatsapp.clone.application.messaging.domain.user.vo.UserPublicId;
@@ -20,5 +21,5 @@ public interface MessageChangeNotifier {
 
     State<Void, String> delete(ConversationPublicId conversationPublicId, List<UserPublicId> userToNotify);
 
-//    State<Void, String> view(ConversationViewedForNotification conversationViewedForNotification, List<UserPublicId> usersToNotify);
+    State<Void, String> view(ConversationViewedForNotification conversationViewedForNotification, List<UserPublicId> usersToNotify);
 }

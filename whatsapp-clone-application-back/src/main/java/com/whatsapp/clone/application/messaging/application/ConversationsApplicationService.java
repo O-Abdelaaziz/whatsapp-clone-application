@@ -4,6 +4,7 @@ import com.whatsapp.clone.application.messaging.domain.message.aggregate.Convers
 import com.whatsapp.clone.application.messaging.domain.message.aggregate.ConversationToCreate;
 import com.whatsapp.clone.application.messaging.domain.message.repository.ConversationRepository;
 import com.whatsapp.clone.application.messaging.domain.message.repository.MessageRepository;
+import com.whatsapp.clone.application.messaging.domain.message.service.ConversationViewed;
 import com.whatsapp.clone.application.messaging.domain.message.vo.ConversationPublicId;
 import com.whatsapp.clone.application.messaging.domain.user.aggregate.User;
 import com.whatsapp.clone.application.messaging.domain.user.repository.UserRepository;

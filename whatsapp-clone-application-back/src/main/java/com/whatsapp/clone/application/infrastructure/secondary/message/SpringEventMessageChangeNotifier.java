@@ -29,4 +29,9 @@ public class SpringEventMessageChangeNotifier implements MessageChangeNotifier {
     public State<Void, String> delete(ConversationPublicId conversationPublicId, List<UserPublicId> userToNotify) {
         return null;
     }
+
+    @Override
+    public State<Void, String> view(ConversationViewedForNotification conversationViewedForNotification, List<UserPublicId> usersToNotify) {
+        return null;
+    }
 }
