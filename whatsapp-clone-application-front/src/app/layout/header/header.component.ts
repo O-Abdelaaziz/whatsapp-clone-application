@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {filter, interval, Subscription} from "rxjs";
 import {ToastService} from "../../shared/toast/toast.service";
 import dayjs from "dayjs";
@@ -23,7 +23,7 @@ import {Conversation} from "../../conversations/model/conversation.model";
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   userSelected: ConnectedUser | undefined;
 
   conversationService = inject(ConversationService);

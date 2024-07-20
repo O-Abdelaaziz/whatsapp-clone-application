@@ -7,7 +7,6 @@ import com.whatsapp.clone.application.messaging.domain.message.vo.ConversationPu
 import com.whatsapp.clone.application.messaging.domain.message.vo.MessageSendState;
 import com.whatsapp.clone.application.messaging.domain.user.service.UserReader;
 import com.whatsapp.clone.application.messaging.domain.user.vo.UserPublicId;
-import com.whatsapp.clone.application.messaging.service.MessageChangeNotifier;
 import com.whatsapp.clone.application.shared.service.State;
 import com.whatsapp.clone.application.messaging.domain.user.aggregate.User;
 

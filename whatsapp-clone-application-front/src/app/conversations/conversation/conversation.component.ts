@@ -96,7 +96,6 @@ export class ConversationComponent {
 
   onMouseOver() {
     this.showMenu = true;
-    console.log('dddddddddddddddddddddd')
   }
 
   onMouseLeave() {

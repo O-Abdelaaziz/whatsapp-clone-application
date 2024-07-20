@@ -9,10 +9,10 @@ import com.whatsapp.clone.application.messaging.domain.message.vo.ConversationPu
 import com.whatsapp.clone.application.messaging.domain.user.aggregate.User;
 import com.whatsapp.clone.application.messaging.domain.user.repository.UserRepository;
 import com.whatsapp.clone.application.messaging.domain.user.service.UserReader;
-import com.whatsapp.clone.application.messaging.service.ConversationCreator;
-import com.whatsapp.clone.application.messaging.service.ConversationDeleter;
-import com.whatsapp.clone.application.messaging.service.ConversationReader;
-import com.whatsapp.clone.application.messaging.service.MessageChangeNotifier;
+import com.whatsapp.clone.application.messaging.domain.message.service.ConversationCreator;
+import com.whatsapp.clone.application.messaging.domain.message.service.ConversationDeleter;
+import com.whatsapp.clone.application.messaging.domain.message.service.ConversationReader;
+import com.whatsapp.clone.application.messaging.domain.message.service.MessageChangeNotifier;
 import com.whatsapp.clone.application.shared.service.State;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.whatsapp.clone.application.messaging.service;
+package com.whatsapp.clone.application.messaging.domain.message.service;
 
 import com.whatsapp.clone.application.messaging.domain.message.aggregate.Conversation;
 import com.whatsapp.clone.application.messaging.domain.message.aggregate.Message;

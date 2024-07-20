@@ -4,7 +4,7 @@ import com.whatsapp.clone.application.infrastructure.primary.message.RestMessage
 import com.whatsapp.clone.application.messaging.domain.message.aggregate.Message;
 import com.whatsapp.clone.application.messaging.domain.message.vo.ConversationPublicId;
 import com.whatsapp.clone.application.messaging.domain.user.vo.UserPublicId;
-import com.whatsapp.clone.application.messaging.service.MessageChangeNotifier;
+import com.whatsapp.clone.application.messaging.domain.message.service.MessageChangeNotifier;
 import com.whatsapp.clone.application.shared.service.State;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
