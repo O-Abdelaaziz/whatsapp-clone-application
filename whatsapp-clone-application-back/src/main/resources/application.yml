@@ -16,9 +16,9 @@ spring:
       auto-commit: false
     driver-class-name: org.postgresql.Driver
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/whats_app_clone_db
-    username: postgres
-    password: postgres
+#    url: jdbc:postgresql://localhost:5432/whats_app_clone_db
+#    username: postgres
+#    password: postgres
   data:
     jpa:
       repositories:
